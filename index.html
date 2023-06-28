@@ -1,0 +1,101 @@
+<html>
+  <body>
+    <h1>Test React App</h1>
+    <div id="app"></div>
+    
+    <a href="otherpage.html">Other Page</a>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <!-- Babel Script -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
+ 
+    <script type="text/javascript">
+    var endPointPath = 'https://catfact.ninja/fact';
+    var catFacts = [];
+    async function callApi(){
+      let i = 0;
+      while (i < 3){
+       await axios
+        .get(endPointPath)
+        .then(function (response) {
+          //console.log(response.data.fact);
+          catFacts.push(response.data.fact);
+        });
+        i++;
+      }
+
+      // var newFileName = await axios.post(endPointPath, { },
+      //                         {
+      //                             headers: {
+      //                             'content-type': 'application/json'
+      //                             },
+      //                             responseType: 'text'
+      //                         });
+      // var newFileNameJSON = newFileName.data;
+      // var newfilenameString = JSON.parse(newFileNameJSON).d;
+      // alert(newfilenameString);
+    };
+    async function main(){
+      await callApi();
+      renderApp();
+    }
+    main();
+    </script> 
+    <script type="text/jsx">
+      const app = document.getElementById('app');
+      //ReactDOM.render(<Header title='hello' />, app);
+
+      function Header(props){
+        return (<h1>{props.title}</h1>)
+      }
+
+      const animals = [
+        {
+          type: "dog",
+          age: 2
+        },
+        {
+          type: "cat",
+          age: 3
+        }
+      ];
+      const App2 = () => (
+        <>
+          {catFacts.map((fact) => (
+            <div key={fact}>
+              <div>Joke: {fact}</div>
+            </div>
+          ))}
+        </>
+      );
+
+      const App = () => {
+        const list = [];
+        for (let i in catFacts){
+            console.log(i);
+            list.push(
+              <div key={i}>
+                <div>Joke: {catFacts[i]}</div>
+              </div>
+          );      
+        }
+{/*        for (let i in animals) {
+          list.push(
+            <div key={i}>
+              <div>Type: {animals[i].type}</div>
+              <div>Age: {animals[i].age}</div>
+            </div>
+          );
+        }*/}
+
+        return list;
+      };
+      function renderApp(){
+        ReactDOM.render(<App2 />, app);
+      }
+    </script>
+
+
+  </body>
+</html>

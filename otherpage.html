@@ -2,6 +2,7 @@
   <body>
     <h1>Test React App</h1>
     <div id="app"></div>
+    <a href="index.html">Index Page</a>
     <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
     <!-- Babel Script -->
@@ -13,7 +14,7 @@
     var catFacts = [];
     async function callApi(){
       let i = 0;
-      while (i < 3){
+      while (i < 4){
        await axios
         .get(endPointPath)
         .then(function (response) {
